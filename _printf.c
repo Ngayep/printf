@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdarg.h>
+#include <stdlib.h>
 
 /**
  * _print_char - handles the 'c' conversion specifier
@@ -62,6 +63,11 @@ int _printf(const char *format, ...)
 				_print_str(va_arg(args, char *), &char_print);
 			else if (*format == '%')
 				_print_char('%', &char_print);
+			else if (*format == '%' && format[1] == '%')
+			{
+				write(1, "%%", 2);
+				char_print += 2;
+			}
 		}
 
 		format++;
