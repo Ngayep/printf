@@ -8,17 +8,19 @@
  * Return: Always 0
  */
 
-int main ()
+int main(void)
 {
-	int len;
-	int len2;
+	int len, len2;
 	unsigned int ui;
 	void *addr;
 
 	_printf("Jess\n");
 	_printf("%c\n", 'b');
+	len = _printf("Jess\n");
 	_printf("%s\n", "string");
+	len = _printf("%s\n", "string");
 	_printf("%%\n");
+	len = _printf("%%\n");
 
 	len = _printf("Let's try to printf a simple sentence.\n");
 	len2 = printf("Let's try to printf a simple sentence.\n");
@@ -44,7 +46,5 @@ int main ()
 	len2 = printf("Percent:[%%]\n");
 	_printf("Len:[%d]\n", len);
 	printf("Len:[%d]\n", len2);
-	/** _printf("Unknown:[%r]\n");
-	printf("Unknown:[%r]\n") ;*/
 	return (0);
 }

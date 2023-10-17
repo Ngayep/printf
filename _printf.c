@@ -1,77 +1,41 @@
 #include "main.h"
-#include <unistd.h>
-#include <string.h>
-#include <stdarg.h>
-#include <stdlib.h>
 
 /**
- * _print_char - handles the 'c' conversion specifier
- * @c: character to be printed
- * @char_print: pointer to the character count
- */
-
-void _print_char(char c, int *char_print)
-{
-	write(1, &c, 1);
-	(*char_print)++;
-}
-/**
- * _print_str - handles the 's' conversion specifier
- * @str: character to be printed
- * @char_print: pointer to the character count
- */
-void _print_str(char *str, int *char_print)
-{
-	int len = 0;
-
-	while (str[len] != '\0')
-	{
-		write(1, &str[len], 1);
-		len++;
-		(*char_print)++;
-	}
-}
-
-/**
- * _printf - custom printf function
- * @format: string format
- * Return: the lenght of the printed string
+ * _printf - Custom printf function that formats and prints text.
+ * @format: The format string containing conversion specifiers.
+ * @...: Variable arguments that correspond to the conversion specifiers.
+ *
+ * This function implements a custom version of printf. It accepts a format
+ * string and variable arguments, and it processes the format string to print
+ * the formatted text to the standard output. It supports the 'c', 's', and
+ * '%%' conversion specifiers and additional specifiers for signed and unsigned
+ * integers.
+ *
+ * Return: The number of characters printed. Returns -1 on error.
  */
 
 int _printf(const char *format, ...)
 {
-	va_list args;
-	int char_print  = 0;
+	int char_print;
 
-	va_start(args, format);
+	_convert _functlist[] = {
+		{"c", p_char},
+		{"s", p_string},
+		{"%", p_percent},
+		{"d", p_integer},
+		{"i", p_integer},
+		{NULL, NULL}
+	};
+
+	va_list args;
 
 	if (format == NULL)
 		return (-1);
-	while (*format)
-	{
-		if (*format != '%')
-		{
-			write(1, format, 1);
-			char_print++;
-		}
-		else
-		{
-			format++;
-			if (*format == 'c')
-				_print_char(va_arg(args, int), &char_print);
-			else if (*format == 's')
-				_print_str(va_arg(args, char *), &char_print);
-			else if (*format == '%')
-				_print_char('%', &char_print);
-			else if (*format == '%' && format[1] == '%')
-			{
-				write(1, "%%", 2);
-				char_print += 2;
-			}
-		}
 
-		format++;
-	}
+	va_start(args, format);
+
+	char_print = parser(format, _functlist, args);
+
 	va_end(args);
 
 	return (char_print);
