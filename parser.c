@@ -40,7 +40,7 @@ int parser(const char *format, _convert _functlist[], va_list args)
 					break;
 				}
 			}
-			if (_functlist[j].sym == NULL && format[i + j] != ' ')
+			if (_functlist[j].sym == NULL && format[i + 1] != ' ')
 			{
 				if (format[i + 1] != '\0')
 				{
@@ -50,7 +50,7 @@ int parser(const char *format, _convert _functlist[], va_list args)
 				else
 					return (-1);
 			}
-			i = i + 1;
+			i++;
 		}
 		else
 		{
