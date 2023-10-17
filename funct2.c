@@ -38,9 +38,9 @@ int print_unsigned_number(unsigned int n)
 int p_binary(va_list args)
 {
 	unsigned int num = va_arg(args, unsigned int);
-	int char_print = 0;
 	char binary[32];
-        int index = 0;
+	int i = 0;
+	int char_print = 0;
 
 	if (num == 0)
 	{
@@ -50,15 +50,30 @@ int p_binary(va_list args)
 
 	while (num > 0)
 	{
-		binary[index] = (num % 2) + '0';
+		binary[i] = (num % 2) + '0';
 		num /= 2;
-		index++;
+		i++;
 	}
 
-	for (index--; index >= 0; index--)
+	for (i--; i >= 0; i--)
 	{
-		_putchar(binary[index]);
+		_putchar(binary[i]);
 		char_print++;
 	}
-	return char_print;
+	return (char_print);
+}
+
+/**
+ * p_hex_upper - Handle the 'X' conversion specifier.
+ * @args: A va_list containing the unsigned integer to print in uppercase hex.
+ *
+ * Return: The number of characters printed.
+ */
+
+int p_hex_upper(va_list args)
+{
+	unsigned int n = va_arg(args, unsigned int);
+	int len = print_hex_number(n, 1);
+
+	return (len);
 }
