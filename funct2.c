@@ -28,3 +28,37 @@ int print_unsigned_number(unsigned int n)
 	}
 	return (len);
 }
+
+/**
+ * p_binary - prints an unsigned integer in binary format
+ * @args: A va_list containing the unsigned integer to print
+ * Return: The number of characters printed
+ */
+
+int p_binary(va_list args)
+{
+	unsigned int num = va_arg(args, unsigned int);
+	int char_print = 0;
+	char binary[32];
+        int index = 0;
+
+	if (num == 0)
+	{
+		_putchar('0');
+		return (1);
+	}
+
+	while (num > 0)
+	{
+		binary[index] = (num % 2) + '0';
+		num /= 2;
+		index++;
+	}
+
+	for (index--; index >= 0; index--)
+	{
+		_putchar(binary[index]);
+		char_print++;
+	}
+	return char_print;
+}
